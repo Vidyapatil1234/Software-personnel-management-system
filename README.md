@@ -1,2 +1,3 @@
 # Software-personnel-management-system
-[Download README as PDF](README.pdf)
+[📄 View README as PDF](README.pdf)
+
