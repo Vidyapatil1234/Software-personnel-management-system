@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Total Employees{% endblock %}
+
+{% block content %}
+<h1>Employees</h1>
+<table id="employeeTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Actions</th> <!-- New column for actions -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.position }}</td>
+            <td>${{ employee.salary }}</td>
+            <td>
+                <!-- Remove Employee -->
+                <form action="{{ url_for('views.delete_employee', employee_id=employee.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-btn">Remove</button>
+                </form>
+
+                <!-- Promote Employee -->
+                <button class="promote-btn" onclick="openPromotionForm('{{ employee.id }}', '{{ employee.name }}')">Promote</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Promotion Modal -->
+<div id="promotionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePromotionForm()">&times;</span>
+        <h2>Promote Employee</h2>
+        <form id="promotionForm" method="POST" action="{{ url_for('views.promote_employee') }}">
+            <input type="hidden" id="employee_id" name="employee_id">
+            
+            <label for="new_position">New Position:</label>
+            <input type="text" id="new_position" name="new_position" required>
+
+            <label for="salary_hike">Salary Hike (%):</label>
+            <input type="number" id="salary_hike" name="salary_hike" required>
+
+            <button type="submit">Promote</button>
+        </form>
+    </div>
+</div>
+
+<!-- Link to External CSS & JS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_total_employees.css') }}">
+<script src="{{ url_for('static', filename='js/view_total_employees.js') }}"></script>
+{% endblock %}

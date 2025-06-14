@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Welcome, Admin!</h1>
+        <p>Manage Employees and System Operations</p>
+    </div>
+
+    <div class="dashboard-actions">
+        <a href="{{ url_for('auth.create_employee') }}" class="action-button">
+            <button>Add New Employee</button>
+        </a>
+    </div>
+
+    <div class="dashboard-features">
+        <h2>Admin Dashboard Features:</h2>
+        <ul class="feature-list">
+            <li><a href="{{ url_for('views.view_total_employees') }}">Manage Employees</a></li>
+            <li><a href="{{ url_for('views.view_job_assignments') }}">View Job Assignments</a></li>
+            <li><a href="{{ url_for('views.generate_reports') }}">Generate Reports</a></li>
+            <li><a href="{{ url_for('auth.logout') }}" class="logout-link">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+{% endblock %}

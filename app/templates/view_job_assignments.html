@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Job Assignments{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_job_assignments.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-8 p-4">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-700">Job Assignments</h1>
+
+    <form action="{{ url_for('views.assign_job') }}" method="POST" class="flex flex-wrap gap-4 mb-6 bg-white p-4 shadow-md rounded-lg">
+        <select name="employee_id" id="employee" class="w-full md:w-1/5 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2" required>
+            <option value="">Select Employee</option>
+            {% for employee in employees %}
+            <option value="{{ employee.id }}">{{ employee.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="job_title" id="job_title" class="w-full md:w-1/5 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2" placeholder="Assignment" required>
+        <textarea name="description" id="description" class="w-full md:w-2/5 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2" placeholder="Job Description"></textarea>
+        <input type="date" name="due_date" class="w-full md:w-1/5 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2" required>
+        <button type="submit" class="bg-green-500 hover:bg-green-700 text-black font-bold py-2 px-6 rounded-md transition-all duration-300 ease-in-out background=green">Assign Job</button>
+    </form>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300">
+            <thead class="bg-gradient-to-r from-yellow-500 to-yellow-400 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Assignments</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Description</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Assigned Date</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Due Date</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Completion Date</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Employee Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase border-b border-gray-200">Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for job in job_assignments %}
+                <tr class="hover:bg-gray-100 transition duration-300 border-l-4 border-transparent hover:border-yellow-500">
+                    <td class="px-6 py-4">{{ job.job_title }}</td>
+                    <td class="px-6 py-4 break-words whitespace-normal max-w-xs">{{ job.description }}</td>
+                    <td class="px-6 py-4">{{ job.assigned_date.strftime('%Y-%m-%d') if job.assigned_date else 'N/A' }}</td>
+                    <td class="px-6 py-4">{{ job.due_date.strftime('%Y-%m-%d') if job.due_date else 'Not Set' }}</td>
+                    <td class="px-6 py-4">{{ job.completed_date.strftime('%Y-%m-%d') if job.completed_date else 'Not yet completed' }}</td>
+                    <td class="px-6 py-4">{{ job.employee.name }}</td>
+                    <td class="px-6 py-4">
+                        {% if job.status == "Not Accepted" %}
+                        <span class="text-red-500 font-bold">Not Accepted Yet</span>
+                        {% else %}
+                        <span class="text-green-500 font-bold">{{ job.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+</div>
+{% endblock %}

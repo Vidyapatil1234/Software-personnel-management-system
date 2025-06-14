@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f2f2f2;
+}
+
+nav {
+    width: 100%;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    padding: 15px 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.content {
+    width: 100%; /* Ensure content takes full width */
+    margin-top: calc(15px + 38px); /* Adjust based on navbar height + padding */
+    display: flex; /* make the content a flex box */
+    flex-direction: column; /* stack the content vertically */
+    align-items: center; /* center the content horizontally */
+}
+
+.wrapper {
+    width: 380px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.wrapper .title {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+}
+
+form .field {
+    margin-top: 20px;
+}
+
+form .field input,
+form .field select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form .field input[type="submit"] {
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}

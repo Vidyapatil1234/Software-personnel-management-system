@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Manage Employees{% endblock %}
+
+{% block content %}
+<h1>Manage Employee Data</h1>
+
+<form id="employeeForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="position" placeholder="Position" required>
+    <button type="submit">Add Employee</button>
+</form>
+
+<table id="employeeTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,79 @@
+/* admin_dashboard.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 80%;
+    max-width: 800px;
+}
+
+.dashboard-header h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.dashboard-header p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.dashboard-actions .action-button button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-actions .action-button button:hover {
+    background-color: #0056b3;
+}
+
+.dashboard-features h2 {
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.dashboard-features .feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.dashboard-features .feature-list li {
+    margin-bottom: 10px;
+}
+
+.dashboard-features .feature-list li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.dashboard-features .feature-list li a:hover {
+    color: #0056b3;
+}
+
+.dashboard-features .feature-list li a.logout-link {
+    color: #dc3545;
+}
+
+.dashboard-features .feature-list li a.logout-link:hover {
+    color: #b02a37;
+}

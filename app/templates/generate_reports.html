@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}Generate Reports{% endblock %}
+
+{% block content %}
+<div class="report-container">
+    <h1>Generate Reports</h1>
+
+    <!-- Tabs for switching between sections -->
+    <div class="tab-container">
+        <button class="tab-button active" onclick="showSection('jobStatus')">Job Status</button>
+        <button class="tab-button" onclick="showSection('employeePerformance')">Employee Performance</button>
+        <button class="tab-button" onclick="showSection('jobPromotions')">Job Promotions</button>
+    </div>
+
+    <!-- Graph Sections -->
+    <section class="report-section" id="jobStatus">
+        <h2>Job Status Overview</h2>
+        <div class="chart-wrapper">
+            <canvas id="jobStatusChart"></canvas>
+        </div>
+    </section>
+
+    <section class="report-section hidden" id="employeePerformance">
+        <h2>Employee Performance</h2>
+        <div class="chart-wrapper">
+            <canvas id="employeePerformanceChart"></canvas>
+        </div>
+    </section>
+
+    <section class="report-section hidden" id="jobPromotions">
+        <h2>Job Promotions</h2>
+        <div class="chart-wrapper">
+            <canvas id="jobPromotionsChart"></canvas>
+        </div>
+    </section>
+
+    <button onclick="generateReport()">Download Employee Report</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.report-section').forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Show the selected section
+        document.getElementById(sectionId).classList.remove('hidden');
+
+        // Add active class to the clicked button
+        document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+    }
+
+    function generateReport() {
+        alert("Report generation functionality will be implemented here.");
+    }
+
+    const chartOptions = { responsive: true, maintainAspectRatio: false };
+
+    // Job Status Chart
+    new Chart(document.getElementById('jobStatusChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Assigned', 'In Progress', 'Completed'],
+            datasets: [{ data: [10, 5, 15], backgroundColor: ['#36a2eb', '#ffce56', '#4bc0c0'] }]
+        },
+        options: chartOptions
+    });
+
+    // Employee Performance Chart
+    new Chart(document.getElementById('employeePerformanceChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Employee A', 'Employee B', 'Employee C'],
+            datasets: [{ data: [20, 15, 25], backgroundColor: ['#ff6384', '#36a2eb', '#ff9f40'] }]
+        },
+        options: chartOptions
+    });
+
+    // Job Promotions Chart
+    new Chart(document.getElementById('jobPromotionsChart'), {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{ data: [3, 1, 4, 2, 5], backgroundColor: '#4bc0c0' }]
+        },
+        options: chartOptions
+    });
+
+</script>
+
+<style>
+    .report-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .tab-button {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #f0f0f0;
+        margin: 0 5px;
+        border-radius: 5px;
+    }
+
+    .tab-button.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .report-section {
+        text-align: center;
+    }
+
+    .chart-wrapper {
+        width: 600px;
+        height: 400px;
+        margin: 0 auto;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .report-container {
+            width: 95%;
+        }
+
+        .chart-wrapper {
+            width: 100%;
+            height: 300px;
+        }
+    }
+</style>
+{% endblock %}

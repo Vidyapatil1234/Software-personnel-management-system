@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome, {{ user.name }}!</h1>
+    <p class="position">Position: <strong>{{ user.position }}</strong></p>
+    <p class="salary">Salary: <strong>${{ user.salary }}</strong></p>
+
+    <h2>Your Job Assignments</h2>
+    {% if job_assignments %}
+        <div class="job-list">
+            {% for job in job_assignments %}
+                <div class="job-card">
+                    <h3>{{ job.job_title }}</h3>
+                    <p class="job-description">{{ job.description }}</p>
+                    <p class="job-due-date">📅 Due Date: 
+                        {% if job.due_date %}
+                            <strong>{{ job.due_date.strftime('%Y-%m-%d') }}</strong>
+                        {% else %}
+                            <strong>N/A</strong>
+                        {% endif %}
+                    </p>
+                    <p class="job-status">🔹 Status: <strong>{{ job.status }}</strong></p>
+
+                    <div class="job-actions">
+                        {% if job.status == "Not Accepted" %}
+                            <form action="{{ url_for('views.accept_job', job_id=job.id) }}" method="post">
+                                <button type="submit" class="accept-btn">Accept Job</button>
+                            </form>
+                        {% endif %}
+
+                        <form action="{{ url_for('views.update_job_status', job_id=job.id) }}" method="post">
+                            <select name="status" class="status-dropdown">
+                                <option value="Accepted" {% if job.status == "Accepted" %}selected{% endif %}>Accepted</option>
+                                <option value="In Progress" {% if job.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                <option value="Completed" {% if job.status == "Completed" %}selected{% endif %}>Completed</option>
+                            </select>
+                            <button type="submit" class="update-btn">Update Status</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-jobs">No job assignments found.</p>
+    {% endif %}
+</div>
+
+<style>
+    .dashboard-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h1 {
+        color: #007bff;
+    }
+
+    .position, .salary {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .job-list {
+        margin-top: 20px;
+    }
+
+    .job-card {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .job-card h3 {
+        margin: 0 0 10px;
+        color: #333;
+    }
+
+    .job-description {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .job-due-date, .job-status {
+        font-size: 14px;
+        color: #777;
+        margin: 5px 0;
+    }
+
+    .job-actions {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .accept-btn, .update-btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .accept-btn {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .accept-btn:hover {
+        background-color: #218838;
+    }
+
+    .update-btn {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .update-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .status-dropdown {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .no-jobs {
+        font-size: 18px;
+        color: #777;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            width: 95%;
+        }
+
+        .job-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .status-dropdown {
+            width: 100%;
+        }
+
+        .accept-btn, .update-btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

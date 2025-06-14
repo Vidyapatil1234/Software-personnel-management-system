@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Software Personnel Management{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Welcome, {{ user.name }}!</h1>
+    <p>You are logged in as <strong>{{ user.role }}</strong>.</p>
+
+    <!-- Summary Section -->
+    <div class="summary-cards">
+        <div class="card">
+            <h3>Total Employees</h3>
+            <p>{{ total_employees }}</p>
+        </div>
+        <div class="card">
+            <h3>Pending Tasks</h3>
+            <p>{{ pending_tasks }}</p>
+        </div>
+        <div class="card">
+            <h3>Completed Jobs</h3>
+            <p>{{ completed_jobs }}</p>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        {% if user.role == "Admin" %}
+            <a href="{{ url_for('views.manage_employees') }}" class="action-button">Manage Employees</a>
+            <a href="{{ url_for('views.generate_reports') }}" class="action-button">View Reports</a>
+        {% else %}
+            <a href="{{ url_for('views.dashboard') }}" class="action-button">View My Dashboard</a>
+            <a href="{{ url_for('views.view_job_assignments') }}" class="action-button">My Job Assignments</a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}" class="action-button logout">Logout</a>
+    </div>
+</div>
+
+<style>
+    .home-container {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .summary-cards {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .card {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 200px;
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
+    .quick-actions {
+        margin-top: 30px;
+    }
+
+    .action-button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .action-button:hover {
+        background-color: #0056b3;
+    }
+
+    .logout {
+        background-color: #dc3545;
+    }
+
+    .logout:hover {
+        background-color: #b02a37;
+    }
+
+    @media (max-width: 768px) {
+        .summary-cards {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+{% endblock %}

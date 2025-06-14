@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="title">Signup Form</div>
+    <form action="{{ url_for('auth.signup') }}" method="POST">
+        <div class="field">
+            <input type="text" name="name" required>
+            <label>Full Name</label>
+        </div>
+        <div class="field">
+            <input type="email" name="email" required>
+            <label>Email Address</label>
+        </div>
+        <div class="field">
+            <input type="password" name="password" required>
+            <label>Password</label>
+        </div>
+        <div class="field">
+            <select name="role" required>
+                <option value="user">Employee</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <div class="field">
+            <input type="submit" value="Signup">
+        </div>
+    </form>
+</div>
+{% endblock %}
